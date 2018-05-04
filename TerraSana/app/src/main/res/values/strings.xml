@@ -1,0 +1,54 @@
+<resources>
+    <string name="app_name">TerraSana</string>
+    <string name="title_activity_login">Inicio de sesión</string>
+    <string name="title_activity_catalogo">Catálogo</string>
+    <string name="title_activity_resgistro">Registro</string>
+
+
+    <!-- Strings related to login -->|
+    <string name="prompt_user_id">Usuario</string>
+    <string name="prompt_user_name">Nombre</string>
+    <string name="prompt_user_last_name">Apellidos</string>
+    <string name="prompt_password">Contraseña</string>
+    <string name="prompt_password_confirm">Confirmar contraseña</string>
+    <string name="action_sign_in">Iniciar sesión</string>
+    <string name="new_user">Registrarse</string>
+    <string name="action_sign_in_short">Iniciar sesión</string>
+    <string name="error_invalid_user_id">Usuario inválido</string>
+    <string name="error_incorrect_password">La contraseña es incorrecta</string>
+    <string name="error_field_required">Este campo es requerido</string>
+    <string name="error_server">Error en el servidor</string>
+    <string name="error_incorrect_user_id">Usuario no registrado</string>
+    <string name="error_network">Conexión de red no disponible</string>
+    <string name="error_invalid_password">Contraseña inválida</string>
+    <string name="OK">OK</string>
+    <string name="mas">+</string>
+    <string name="menos">-</string>
+    <string name="mapa">Ubicacion</string>
+    <string name="marker_detail_latlng">(%1$.2f, %2$.2f)</string>
+    <string name="argentina_full_snippet">
+La República Argentina, conocida simplemente como Argentina,
+es un país soberano de América del Sur, ubicado en el extremo sur y sudeste
+de dicho subcontinente. Adopta la forma de gobierno republicana, representativa y federal.
+El Estado nacional convive federativamente con veinticuatro entidades
+estatales autónomas, de las cuales veintitrés son provincias
+que preservan todo el poder no delegado constitucionalmente
+a la Nación y una es la Ciudad Autónoma de Buenos Aires,
+designada por ley como capital federal.</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        
+        completions."
+    </string>
+    <string-array name="Titulos">
+        <item>Lechuga</item>
+    </string-array>
+
+    <string-array name="Cantidad">
+        <item>Unidad</item>
+    </string-array>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_maps">Map</string>
+
+</resources>

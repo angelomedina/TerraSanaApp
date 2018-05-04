@@ -1,0 +1,81 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <TextView
+        android:id="@+id/nombre"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:text="Marshmallow"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="@android:color/black" />
+
+
+    <TextView
+        android:id="@+id/unidad"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/nombre"
+        android:layout_marginTop="5dp"
+        android:text="Android 6.0"
+        android:textColor="@android:color/black" />
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="120dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="160dp"
+        android:orientation="horizontal" >
+
+        <Button
+        android:id="@+id/disminuir"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@color/white"
+        android:textColor="@color/colorPrimary"
+        android:textStyle="bold"
+        android:text="@string/menos"/>
+
+
+        <TextView
+            android:id="@+id/cantidad"
+            android:layout_width="40dp"
+            android:layout_height="30dp"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimary"
+            android:textStyle="bold"/>
+
+        <Button
+            android:id="@+id/aumentar"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@color/white"
+            android:textColor="@color/colorPrimary"
+            android:textStyle="bold"
+            android:text="@string/mas"/>
+
+
+
+    </LinearLayout>
+    <ImageView
+        android:id="@+id/imagen"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:textColor="@color/colorPrimary"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:src="@android:drawable/ic_dialog_info" />
+    <Button
+        android:id="@+id/carrito"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@color/white"
+        android:textColor="@color/colorPrimary"
+        android:textStyle="bold"
+        android:text="c"/>
+
+</RelativeLayout>
