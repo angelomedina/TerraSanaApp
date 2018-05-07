@@ -12,8 +12,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Redirección al Login
         if (true) {
-            //startActivity(new Intent(this, LoginActivity.class));
-            startActivity(new Intent(this, CatalogoActivity.class));
+            startActivity(new Intent(this, LoginActivity.class));
             finish();
             return;
         }

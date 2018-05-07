@@ -4,25 +4,46 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.net.Uri;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
-import android.support.design.widget.Snackbar;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.katty.terrasana.objetos.Producto;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class CatalogoActivity extends AppCompatActivity {
 
-    ArrayList<Producto> dataModels;
-    List<Producto> model=new ArrayList<>();
-    ListView listView;
-    private static CustomAdapter adapter;
+
+    Spinner spinnerProductos;
+    String[] listaProductos = {"","Fruta","Hierba","Hortaliza","Tubérculo"};
+
+    List<Producto>    model  = new ArrayList<>();
+    ProductoAdapter   adapter = null;
+
+    private static final String TAGLOG = "firebase-db";
     private static final int REQUEST_CODE = 1234;
 
     @Override
@@ -30,16 +51,33 @@ public class CatalogoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_catalogo);
 
-        listView = findViewById(R.id.list);
-        dataModels = new ArrayList<>();
-        //debo agregar el evento para le boton del speech
+        adapter = new ProductoAdapter();
+        ListView list = (ListView) findViewById(R.id.lista_productos);
+        list.setAdapter(adapter);
 
-        dataModels.add(new Producto("Lechuga", "0", "Unidad"));
-        dataModels.add(new Producto("Oregano", "0","10 Gramos"));
+        spinnerProductos = (Spinner) findViewById(R.id.select_producto);
 
-        adapter = new CustomAdapter(dataModels, getApplicationContext());
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, listaProductos);
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerProductos.setAdapter(dataAdapter);
 
-        listView.setAdapter(adapter);
+        spinnerProductos.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                adapter.clear();
+                String categoria = (String) adapterView.getItemAtPosition(i);
+
+                if(categoria != "") {
+                    categoriaProductos(categoria);
+                }
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+            }
+        });
 
     }
 
@@ -66,9 +104,15 @@ public class CatalogoActivity extends AppCompatActivity {
                 startActivityForResult(intent, REQUEST_CODE);
                 Toast.makeText(CatalogoActivity.this, "No funciona por ahora", Toast.LENGTH_SHORT).show();
             }
-            else {
-                Toast.makeText(StoTMainActivity.this, "", Toast.LENGTH_SHORT).show();
-            }
+        }
+        else if (id == R.id.perfil) {
+            Intent registrar = new Intent(getApplicationContext(), PerfilActivity.class);
+            startActivity(registrar);
+        }
+
+        else if (id == R.id.historial) {
+            Intent registrar = new Intent(getApplicationContext(), HistorialActivity.class);
+            startActivity(registrar);
         }
 
         return super.onOptionsItemSelected(item);
@@ -84,4 +128,83 @@ public class CatalogoActivity extends AppCompatActivity {
             return false;
         }
     }
+
+    class ProductoAdapter extends ArrayAdapter<Producto> {
+        ProductoAdapter(){
+            super(CatalogoActivity.this, R.layout.row_item, model);
+        }
+
+        @NonNull
+        @Override
+        public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+            View row=convertView;
+            ProductoHolder holder=null;
+            if(row==null){
+                LayoutInflater inflater=getLayoutInflater();
+                row=inflater.inflate(R.layout.row_item, parent,false);
+                holder=new ProductoHolder(row);
+                row.setTag(holder);
+            }
+            else{
+                holder=(ProductoHolder) row.getTag();
+            }
+            holder.populateFrom(model.get(position));
+            return (row);
+        }
+    }
+
+    static class ProductoHolder {
+
+        private ImageView icono, imagen1, imagen2, imagen3 = null;
+        private TextView nombre,unidad,precio = null;
+
+        ProductoHolder(View row) {
+            icono  = (ImageView) row.findViewById(R.id.imagen_row);
+            nombre = (TextView)  row.findViewById(R.id.nombre_row);
+            unidad = (TextView) row.findViewById(R.id.unidad_row);
+            precio = (TextView) row.findViewById(R.id.precio_row);
+        }
+
+        void populateFrom(Producto r) {
+
+            Picasso.get().load(r.getIcono()).into(icono);
+            nombre.setText("Nombre: "+r.getNombre());
+            precio.setText("Precio: " + Integer.toString(r.getPrecio()));
+            unidad.setText("Unidad: " + r.getUnodad());
+
+        }
+
+    }
+
+    public  void categoriaProductos(String categoria){
+        DatabaseReference productos = FirebaseDatabase.getInstance().getReference().child("Productos").child(categoria);
+        productos.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot childDataSnapshot : dataSnapshot.getChildren()) {
+
+                    //Toast.makeText(getApplicationContext(),"Select "+childDataSnapshot.getKey(),Toast.LENGTH_SHORT).show();
+
+                    String nombre =  childDataSnapshot.getKey();
+                    String icono   = childDataSnapshot.child("icono").getValue().toString();
+                    String imagen1 = childDataSnapshot.child("imagen1").getValue().toString();
+                    String imagen2 = childDataSnapshot.child("imagen2").getValue().toString();
+                    String imagen3 = childDataSnapshot.child("imagen3").getValue().toString();
+                    int    precio =  Integer.parseInt(childDataSnapshot.child("precio").getValue().toString());
+                    String unidad = childDataSnapshot.child("unidad").getValue().toString();
+
+                    Producto producto = new Producto(nombre,icono,imagen1,imagen2,imagen3,precio,unidad);
+
+                    adapter.add(producto);
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.e(TAGLOG, "Error!", databaseError.toException());
+            }
+        });
+    }
+
+
+
 }

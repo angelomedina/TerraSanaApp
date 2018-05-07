@@ -5,7 +5,7 @@
     android:padding="10dp">
 
     <TextView
-        android:id="@+id/nombre"
+        android:id="@+id/nombre_row"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -13,12 +13,20 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:textColor="@android:color/black" />
 
-
     <TextView
-        android:id="@+id/unidad"
+        android:id="@+id/unidad_row"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/nombre"
+        android:layout_below="@+id/nombre_row"
+        android:layout_marginTop="5dp"
+        android:text="Android 6.0"
+        android:textColor="@android:color/black" />
+
+    <TextView
+        android:id="@+id/precio_row"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/unidad_row"
         android:layout_marginTop="5dp"
         android:text="Android 6.0"
         android:textColor="@android:color/black" />
@@ -61,7 +69,7 @@
 
     </LinearLayout>
     <ImageView
-        android:id="@+id/imagen"
+        android:id="@+id/imagen_row"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:textColor="@color/colorPrimary"
@@ -69,13 +77,5 @@
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:src="@android:drawable/ic_dialog_info" />
-    <Button
-        android:id="@+id/carrito"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:background="@color/white"
-        android:textColor="@color/colorPrimary"
-        android:textStyle="bold"
-        android:text="c"/>
 
 </RelativeLayout>

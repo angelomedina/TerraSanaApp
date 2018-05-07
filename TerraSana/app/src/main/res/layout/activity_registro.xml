@@ -20,8 +20,6 @@
         android:visibility="gone" />
     <!--android:theme="@style/WhiteProgress"-->
 
-
-
         <LinearLayout
             android:id="@+id/email_login_form"
             android:layout_width="match_parent"
@@ -30,16 +28,15 @@
             android:orientation="vertical">
 
             <android.support.design.widget.TextInputLayout
-                android:id="@+id/float_label_user_name"
+                android:id="@+id/float_label_correo_registro"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-                <!--android:theme="@style/LoginTextField">-->
 
                 <EditText
-                    android:id="@+id/user_name"
+                    android:id="@+id/correo_registro"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/prompt_user_name"
+                    android:hint="Correo"
                     android:maxLines="1"
                     android:textColor="@color/colorPrimary"
                     android:textColorHint="@color/colorPrimary" />
@@ -47,87 +44,24 @@
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
-                android:id="@+id/float_label_user_last_name"
+                android:id="@+id/float_label_contraseña_registro"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <!--android:theme="@style/LoginTextField">-->
 
                 <EditText
-                    android:id="@+id/user_last_name"
+                    android:id="@+id/contraseña_registro"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/prompt_user_last_name"
+                    android:hint="Contraseña"
                     android:maxLines="1"
                     android:textColor="@color/colorPrimary"
                     android:textColorHint="@color/colorPrimary" />
-
-            </android.support.design.widget.TextInputLayout>
-
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/float_label_user_id"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <!--android:theme="@style/LoginTextField">-->
-
-                <EditText
-                    android:id="@+id/user_id"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/prompt_user_id"
-                    android:maxLines="1"
-                    android:textColor="@color/colorPrimary"
-                    android:textColorHint="@color/colorPrimary" />
-
-            </android.support.design.widget.TextInputLayout>
-
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/float_label_password"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <!--android:theme="@style/LoginTextField"
-               app:passwordToggleEnabled="true">-->
-
-                <EditText
-                    android:id="@+id/password"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/prompt_password"
-
-                    android:imeActionLabel="@string/action_sign_in_short"
-                    android:imeOptions="actionUnspecified"
-                    android:inputType="textPassword"
-                    android:maxLines="1"
-                    android:textColor="@color/colorPrimary"
-                    android:textColorHint="@android:color/white" />
-                <!--android:imeActionId="@+id/login"-->
-
-            </android.support.design.widget.TextInputLayout>
-
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/float_label_password_confirm"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <!--android:theme="@style/LoginTextField"
-               app:passwordToggleEnabled="true">-->
-
-                <EditText
-                    android:id="@+id/passwordConfirm"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/prompt_password_confirm"
-
-                    android:imeActionLabel="@string/action_sign_in_short"
-                    android:imeOptions="actionUnspecified"
-                    android:inputType="textPassword"
-                    android:maxLines="1"
-                    android:textColor="@color/colorPrimary"
-                    android:textColorHint="@android:color/white" />
-                <!--android:imeActionId="@+id/login"-->
 
             </android.support.design.widget.TextInputLayout>
 
             <Button
-                android:id="@+id/new_user"
+                android:id="@+id/btn_registrar"
                 android:background="@color/colorPrimaryDark"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

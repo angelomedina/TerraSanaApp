@@ -1,8 +1,10 @@
 <resources>
-    <string name="app_name">TerraSana</string>
+    <string name="app_name">TerraSana2</string>
     <string name="title_activity_login">Inicio de sesión</string>
     <string name="title_activity_catalogo">Catálogo</string>
     <string name="title_activity_resgistro">Registro</string>
+    <string name="title_activity_compra">Información de compra</string>
+    <string name="title_activity_listacompra">Lista de compra</string>
 
 
     <!-- Strings related to login -->|
@@ -25,16 +27,10 @@
     <string name="mas">+</string>
     <string name="menos">-</string>
     <string name="mapa">Ubicacion</string>
+    <string name="perfil">Perfil</string>
+    <string name="historial">Historial</string>
+    <string name="spinner">Historial por fecha</string>
     <string name="marker_detail_latlng">(%1$.2f, %2$.2f)</string>
-    <string name="argentina_full_snippet">
-La República Argentina, conocida simplemente como Argentina,
-es un país soberano de América del Sur, ubicado en el extremo sur y sudeste
-de dicho subcontinente. Adopta la forma de gobierno republicana, representativa y federal.
-El Estado nacional convive federativamente con veinticuatro entidades
-estatales autónomas, de las cuales veintitrés son provincias
-que preservan todo el poder no delegado constitucionalmente
-a la Nación y una es la Ciudad Autónoma de Buenos Aires,
-designada por ley como capital federal.</string>
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         
         completions."

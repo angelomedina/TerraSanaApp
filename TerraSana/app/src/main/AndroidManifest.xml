@@ -40,7 +40,9 @@
         <activity
             android:name=".CatalogoActivity"
             android:label="@string/title_activity_catalogo" />
-        <activity android:name=".ListaCompra" />
+        <activity
+            android:name=".ListaCompra"
+            android:label="@string/title_activity_listacompra" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -55,10 +57,15 @@
 
         <activity
             android:name=".MapsActivity"
-            android:label="@string/title_activity_maps">
-
-        </activity>
-        <activity android:name=".MarkerDetailActivity"></activity>
+            android:label="@string/title_activity_maps" />
+        <activity
+            android:name=".InfoPedidoActivity"
+            android:label="@string/title_activity_compra" />
+        <activity
+            android:name=".PerfilActivity"
+            android:label="@string/perfil" />
+        <activity android:name=".HistorialActivity"
+            android:label="@string/historial"></activity>
     </application>
 
 </manifest>

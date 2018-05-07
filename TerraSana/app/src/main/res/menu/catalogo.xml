@@ -24,13 +24,13 @@
 
 
 <item
-    android:id="@+id/Hola1"
+    android:id="@+id/perfil"
     android:orderInCategory="1"
-    android:title="Hola1"
+    android:title="@string/perfil"
     app:showAsAction="never" />
 <item
-    android:id="@+id/Hola2"
+    android:id="@+id/historial"
     android:orderInCategory="2"
-    android:title="Hola2"
+    android:title="@string/historial"
     app:showAsAction="never" />
 </menu>
