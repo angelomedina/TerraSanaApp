@@ -1,0 +1,99 @@
+{
+  "project_info": {
+    "project_number": "903181826523",
+    "firebase_url": "https://terrasanaapp-fe22e.firebaseio.com",
+    "project_id": "terrasanaapp-fe22e",
+    "storage_bucket": "terrasanaapp-fe22e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:903181826523:android:49d8f309c2c4768f",
+        "android_client_info": {
+          "package_name": "angelogm.com.terrasanaapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "903181826523-88bcn9bk975d3ajrq6o19ua7o8oslthc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "angelogm.com.terrasanaapp",
+            "certificate_hash": "eea3fa73f71d0bc551737dc4b39d086ab0199e55"
+          }
+        },
+        {
+          "client_id": "903181826523-0ask7321thtkcpmko7lcur95pk3ifl25.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBN7Xh2UwCo95QxSukFilrU7DbG5iZdH30"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "903181826523-0ask7321thtkcpmko7lcur95pk3ifl25.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:903181826523:android:02519ef7740816ed",
+        "android_client_info": {
+          "package_name": "com.example.katty.terrasana"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "903181826523-rcgh7l0nsjav9r6tm8cdu2fq6h6unoh8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.katty.terrasana",
+            "certificate_hash": "eea3fa73f71d0bc551737dc4b39d086ab0199e55"
+          }
+        },
+        {
+          "client_id": "903181826523-0ask7321thtkcpmko7lcur95pk3ifl25.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBN7Xh2UwCo95QxSukFilrU7DbG5iZdH30"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "903181826523-0ask7321thtkcpmko7lcur95pk3ifl25.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
