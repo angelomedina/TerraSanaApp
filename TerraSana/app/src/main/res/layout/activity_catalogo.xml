@@ -18,6 +18,14 @@
         android:stretchColumns="1">
 
         <TableRow>
+            <TextView
+                android:id="@+id/precio_row"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/unidad_row"
+                android:layout_marginTop="5dp"
+                android:text="Tipo producto: "
+                android:textColor="@android:color/black" />
             <Spinner
                 android:id="@+id/select_producto"
                 android:layout_width="fill_parent"

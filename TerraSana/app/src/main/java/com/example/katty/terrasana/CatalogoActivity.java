@@ -1,6 +1,7 @@
 package com.example.katty.terrasana;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -8,6 +9,7 @@ import android.os.Bundle;
 import android.speech.RecognizerIntent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,13 +19,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.katty.terrasana.objetos.Carrito;
 import com.example.katty.terrasana.objetos.Producto;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -35,6 +40,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CatalogoActivity extends AppCompatActivity {
+
+
+    static FirebaseAuth.AuthStateListener mAuthListener;
 
 
     Spinner spinnerProductos;
@@ -50,6 +58,7 @@ public class CatalogoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_catalogo);
+
 
         adapter = new ProductoAdapter();
         ListView list = (ListView) findViewById(R.id.lista_productos);
@@ -130,6 +139,7 @@ public class CatalogoActivity extends AppCompatActivity {
     }
 
     class ProductoAdapter extends ArrayAdapter<Producto> {
+
         ProductoAdapter(){
             super(CatalogoActivity.this, R.layout.row_item, model);
         }
@@ -153,27 +163,97 @@ public class CatalogoActivity extends AppCompatActivity {
         }
     }
 
-    static class ProductoHolder {
+    static class ProductoHolder extends LoginActivity{
 
         private ImageView icono, imagen1, imagen2, imagen3 = null;
         private TextView nombre,unidad,precio = null;
+        private Button   aumentar,disminuir,confirmar=null;
+        private TextView cantidad=null;
+
 
         ProductoHolder(View row) {
-            icono  = (ImageView) row.findViewById(R.id.imagen_row);
-            nombre = (TextView)  row.findViewById(R.id.nombre_row);
-            unidad = (TextView) row.findViewById(R.id.unidad_row);
-            precio = (TextView) row.findViewById(R.id.precio_row);
+            icono     = (ImageView) row.findViewById(R.id.imagen_row);
+            nombre    = (TextView)  row.findViewById(R.id.nombre_row);
+            unidad    = (TextView) row.findViewById(R.id.unidad_row);
+            precio    = (TextView) row.findViewById(R.id.precio_row);
+            aumentar  = (Button) row.findViewById(R.id.aumentar);
+            disminuir = (Button) row.findViewById(R.id.disminuir);
+            confirmar = (Button) row.findViewById(R.id.confirmar);
+            cantidad  = (TextView) row.findViewById(R.id.cantidad);
+
         }
 
-        void populateFrom(Producto r) {
+        void populateFrom(final Producto r) {
+            final int[] cant = {0};
 
             Picasso.get().load(r.getIcono()).into(icono);
             nombre.setText("Nombre: "+r.getNombre());
             precio.setText("Precio: " + Integer.toString(r.getPrecio()));
             unidad.setText("Unidad: " + r.getUnodad());
 
+            aumentar.setOnClickListener(new View.OnClickListener() {
+                //int cant=0;
+                @Override
+                public void onClick(View view) {
+                    if(cant[0]>=0){
+                        cant[0]++;
+                        cantidad.setText(String.valueOf(cant[0]));
+                    }
+                }
+            });
+
+            disminuir.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(cant[0]>=1) {
+                        cant[0]--;
+                        cantidad.setText(String.valueOf(cant[0]));
+                    }
+                }
+            });
+
+
+            confirmar.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(cant[0]>=1) {
+
+                        String correo = userEmail;
+
+                        agregarCarrito(correo,r,cant[0]);
+
+                    }
+                }
+            });
+
         }
 
+        void agregarCarrito(String correo,Producto r,int cant){
+
+            FirebaseDatabase database = FirebaseDatabase.getInstance();
+            final DatabaseReference ref      = database.getReference("Carrito");
+
+            Carrito carrito = new Carrito(correo,r.getNombre(),Integer.toString(r.getPrecio()),cant,Boolean.FALSE);
+            ref.child("Carrito").push().setValue(carrito);
+
+            //notificacion("Producto agregado al carrito");
+        }
+
+        void notificacion(String mensaje){
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
+            builder.setMessage(mensaje)
+                    .setTitle("Mensaje")
+                    .setCancelable(false)
+                    .setNeutralButton("Aceptar",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    dialog.cancel();
+                                }
+                            });
+            AlertDialog alert = builder.create();
+            alert.show();
+        }
     }
 
     public  void categoriaProductos(String categoria){

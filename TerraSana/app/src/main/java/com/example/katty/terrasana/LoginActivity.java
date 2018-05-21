@@ -23,6 +23,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     Button buttonSignIn,buttonVentanaRegistrar;
     EditText editTextEmail, editTextPass;
 
+    public static  String userEmail;
+
     FirebaseAuth.AuthStateListener mAuthListener;
 
     @Override
@@ -73,6 +75,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void iniciarSesion(String email,String pass){
+        userEmail = email;
         FirebaseAuth.getInstance().signInWithEmailAndPassword(email,pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
