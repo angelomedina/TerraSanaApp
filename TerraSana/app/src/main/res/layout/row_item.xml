@@ -73,13 +73,15 @@
             android:textColor="@color/colorPrimary"
             android:textStyle="bold" />
 
-        <Button
+        <ImageButton
             android:id="@+id/confirmar"
-            android:layout_width="60dp"
-            android:layout_height="40dp"
-            android:text="Add"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:icon="@drawable/ic_mic_white_24dp"
+            android:src="@android:drawable/ic_input_add"
             android:textColor="@color/colorPrimary"
             android:textStyle="bold" />
+
 
 
     </LinearLayout>

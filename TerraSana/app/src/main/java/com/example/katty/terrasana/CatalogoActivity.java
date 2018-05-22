@@ -1,7 +1,6 @@
 package com.example.katty.terrasana;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -9,7 +8,6 @@ import android.os.Bundle;
 import android.speech.RecognizerIntent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Spinner;
@@ -43,6 +42,7 @@ public class CatalogoActivity extends AppCompatActivity {
 
 
     static FirebaseAuth.AuthStateListener mAuthListener;
+
 
 
     Spinner spinnerProductos;
@@ -165,9 +165,11 @@ public class CatalogoActivity extends AppCompatActivity {
 
     static class ProductoHolder extends LoginActivity{
 
+
         private ImageView icono, imagen1, imagen2, imagen3 = null;
         private TextView nombre,unidad,precio = null;
-        private Button   aumentar,disminuir,confirmar=null;
+        private Button   aumentar,disminuir=null;
+        private ImageButton confirmar=null;
         private TextView cantidad=null;
 
 
@@ -178,7 +180,7 @@ public class CatalogoActivity extends AppCompatActivity {
             precio    = (TextView) row.findViewById(R.id.precio_row);
             aumentar  = (Button) row.findViewById(R.id.aumentar);
             disminuir = (Button) row.findViewById(R.id.disminuir);
-            confirmar = (Button) row.findViewById(R.id.confirmar);
+            confirmar = (ImageButton) row.findViewById(R.id.confirmar);
             cantidad  = (TextView) row.findViewById(R.id.cantidad);
 
         }
@@ -191,6 +193,8 @@ public class CatalogoActivity extends AppCompatActivity {
             precio.setText("Precio: " + Integer.toString(r.getPrecio()));
             unidad.setText("Unidad: " + r.getUnodad());
 
+            confirmar.setBackgroundColor(0xFFFFFFFF);
+
             aumentar.setOnClickListener(new View.OnClickListener() {
                 //int cant=0;
                 @Override
@@ -198,6 +202,8 @@ public class CatalogoActivity extends AppCompatActivity {
                     if(cant[0]>=0){
                         cant[0]++;
                         cantidad.setText(String.valueOf(cant[0]));
+
+                        confirmar.setBackgroundColor(0xFFFFFFFF);
                     }
                 }
             });
@@ -208,6 +214,8 @@ public class CatalogoActivity extends AppCompatActivity {
                     if(cant[0]>=1) {
                         cant[0]--;
                         cantidad.setText(String.valueOf(cant[0]));
+
+                        confirmar.setBackgroundColor(0xFFFFFFFF);
                     }
                 }
             });
@@ -221,6 +229,7 @@ public class CatalogoActivity extends AppCompatActivity {
                         String correo = userEmail;
 
                         agregarCarrito(correo,r,cant[0]);
+                        confirmar.setBackgroundColor(0xFFDDF603);
 
                     }
                 }
@@ -236,24 +245,8 @@ public class CatalogoActivity extends AppCompatActivity {
             Carrito carrito = new Carrito(correo,r.getNombre(),Integer.toString(r.getPrecio()),cant,Boolean.FALSE);
             ref.child("Carrito").push().setValue(carrito);
 
-            //notificacion("Producto agregado al carrito");
         }
 
-        void notificacion(String mensaje){
-
-            AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
-            builder.setMessage(mensaje)
-                    .setTitle("Mensaje")
-                    .setCancelable(false)
-                    .setNeutralButton("Aceptar",
-                            new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int id) {
-                                    dialog.cancel();
-                                }
-                            });
-            AlertDialog alert = builder.create();
-            alert.show();
-        }
     }
 
     public  void categoriaProductos(String categoria){

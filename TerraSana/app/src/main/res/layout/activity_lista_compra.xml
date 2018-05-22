@@ -4,16 +4,80 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ListaCompra">
+    tools:context=".ListaCompra"
+    tools:layout_editor_absoluteY="81dp">
+
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Carrito de compras"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ListView
+            android:id="@+id/lista_pedidos"
+            style="@style/Widget.AppCompat.ListView.Menu"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="21dp"
+            android:layout_marginTop="57dp"
+            app:layout_constraintBottom_toTopOf="@+id/txt_monto_total"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="MissingConstraints" />
 
         <Button
-            android:id="@+id/mapa"
-            android:background="@color/colorPrimaryDark"
-            android:layout_width="match_parent"
+            android:id="@+id/mapa_compra"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="200dp"
-            android:text="@string/mapa"
-            android:textColor="@color/colorAccent"
-            android:textStyle="bold"/>
+            android:layout_marginBottom="18dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
+            android:text="Ubicacion"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/btn_realizar_compra"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txt_ubicacion" />
+
+        <Button
+            android:id="@+id/btn_realizar_compra"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:layout_marginEnd="26dp"
+            android:layout_marginRight="26dp"
+            android:text="Confirmar"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/mapa_compra" />
+
+        <TextView
+            android:id="@+id/txt_monto_total"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="18dp"
+            android:layout_marginLeft="56dp"
+            android:layout_marginStart="56dp"
+            android:text="Total:"
+            app:layout_constraintBottom_toTopOf="@+id/txt_ubicacion"
+            app:layout_constraintStart_toStartOf="@+id/lista_pedidos"
+            app:layout_constraintTop_toBottomOf="@+id/lista_pedidos" />
+
+        <TextView
+            android:id="@+id/txt_ubicacion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="82dp"
+            android:text="Ubucacion: "
+            app:layout_constraintBottom_toTopOf="@+id/mapa_compra"
+            app:layout_constraintStart_toStartOf="@+id/txt_monto_total"
+            app:layout_constraintTop_toBottomOf="@+id/txt_monto_total" />
+
 
 </android.support.constraint.ConstraintLayout>
