@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.katty.terrasana.objetos.FirebaseReferences;
 import com.example.katty.terrasana.objetos.Usuario;
@@ -86,22 +87,24 @@ public class RegistroActivity extends AppCompatActivity implements View.OnClickL
                     Usuario usuario = new Usuario(email,pass);
                     ref.child(FirebaseReferences.USER_REFERENCE).push().setValue(usuario);
 
-                    mensaje("Usuarios creados correctamente");
+                    Toast.makeText(getApplicationContext(), "Usuario registrado correctamente", Toast.LENGTH_SHORT).show();
 
                     Intent siguienteVentana = new Intent(getApplicationContext(), LoginActivity.class);
                     startActivity(siguienteVentana);
 
                 }else{
                     Log.i("SESION",task.getException().getMessage()+"");
-                    mensaje(task.getException().getMessage()+"");
+                    Toast.makeText(getApplicationContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                    editTextEmail.setText("");
+                    editTextPass.setText("");
                 }
             }
         });
     }
 
-    public void mensaje(String mensaje){
+    /*public void mensaje(String mensaje){
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        /*AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage(mensaje)
                 .setTitle("Mensaje")
                 .setCancelable(false)
@@ -113,5 +116,6 @@ public class RegistroActivity extends AppCompatActivity implements View.OnClickL
                         });
         AlertDialog alert = builder.create();
         alert.show();
-    }
+
+    }*/
 }

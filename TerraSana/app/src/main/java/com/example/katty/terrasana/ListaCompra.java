@@ -1,9 +1,16 @@
 package com.example.katty.terrasana;
 
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -17,6 +24,8 @@ import android.widget.TextView;
 
 import com.example.katty.terrasana.objetos.Compra;
 import com.example.katty.terrasana.objetos.Pedido;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -34,6 +43,7 @@ public class ListaCompra extends AppCompatActivity implements View.OnClickListen
 
     Button  btnConfirmar,btnMapa;
     TextView txtTotal,txtUbicacion;
+    LatLng miUbicacion;
 
 
     @Override
@@ -46,16 +56,14 @@ public class ListaCompra extends AppCompatActivity implements View.OnClickListen
         ListView list = (ListView) findViewById(R.id.lista_pedidos);
         list.setAdapter(adapter);
 
-        btnMapa       = (Button) findViewById(R.id.mapa_compra);
-        btnConfirmar  = (Button) findViewById(R.id.btn_realizar_compra);
-        txtTotal      = (TextView) findViewById(R.id.txt_monto_total);
-        txtUbicacion  = (TextView) findViewById(R.id.txt_ubicacion);
+        btnMapa = (Button) findViewById(R.id.mapa_compra);
+        btnConfirmar = (Button) findViewById(R.id.btn_realizar_compra);
+        txtTotal = (TextView) findViewById(R.id.txt_monto_total);
+        txtUbicacion = (TextView) findViewById(R.id.txt_ubicacion);
 
         btnConfirmar.setOnClickListener(this);
 
-
         carritoUsuario();
-
     }
 
 
@@ -65,9 +73,10 @@ public class ListaCompra extends AppCompatActivity implements View.OnClickListen
             case R.id.btn_realizar_compra:
                 procesarCompra();
                 break;
-
+            case R.id.mapa_compra:
+                mostrarMapa();
+                break;
         }
-
     }
 
     public  void procesarCompra() {
@@ -211,9 +220,7 @@ public class ListaCompra extends AppCompatActivity implements View.OnClickListen
     }
 
     static class PedidoHolder{
-
         private TextView    nombre,precio,cantidad = null;
-
 
         PedidoHolder(View row) {
             nombre    = (TextView)  row.findViewById(R.id.nombre_pedido);
@@ -222,15 +229,15 @@ public class ListaCompra extends AppCompatActivity implements View.OnClickListen
         }
 
         void populateFrom(final Pedido r) {
-
             nombre.setText("Nombre: "+r.getNombre());
             precio.setText("Precio: "+r.getPrecio());
             cantidad.setText("Cantidad: "+r.getCantidad());
-
         }
 
     }
 
-
-
+    public void mostrarMapa(){
+        Intent maps = new Intent(getApplicationContext(), MapsActivity.class);
+        startActivity(maps);
+    }
 }

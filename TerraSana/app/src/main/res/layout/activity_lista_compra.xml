@@ -39,7 +39,8 @@
             android:layout_marginBottom="18dp"
             android:layout_marginLeft="8dp"
             android:layout_marginStart="8dp"
-            android:text="Ubicacion"
+            android:onClick="onClick"
+            android:text="Cambiar punto de entrega"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/btn_realizar_compra"
             app:layout_constraintStart_toStartOf="parent"
@@ -72,9 +73,9 @@
         <TextView
             android:id="@+id/txt_ubicacion"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="17dp"
             android:layout_marginBottom="82dp"
-            android:text="Ubucacion: "
+            android:text="Punto de entrega: mi ubicación"
             app:layout_constraintBottom_toTopOf="@+id/mapa_compra"
             app:layout_constraintStart_toStartOf="@+id/txt_monto_total"
             app:layout_constraintTop_toBottomOf="@+id/txt_monto_total" />

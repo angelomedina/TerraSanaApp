@@ -133,7 +133,7 @@ public class MapsActivity extends FragmentActivity implements
         }
 
         // Markers
-        LatLng entrega = new LatLng(4.6, -74.08);
+        LatLng entrega = new LatLng(10.3620435, -84.509498);
         markerPais = googleMap.addMarker(new MarkerOptions()
                 .position(entrega)
                 .title("Entrega")

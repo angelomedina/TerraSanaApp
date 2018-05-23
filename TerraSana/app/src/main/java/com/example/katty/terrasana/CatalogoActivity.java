@@ -1,6 +1,6 @@
 package com.example.katty.terrasana;
 
-import android.app.Dialog;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
@@ -38,6 +38,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class CatalogoActivity extends AppCompatActivity {
 
@@ -47,15 +48,14 @@ public class CatalogoActivity extends AppCompatActivity {
 
 
     Spinner spinnerProductos;
-    String[] listaProductos = {"","Fruta","Hierba","Hortaliza","Tubérculo"};
+    String[] listaProductos = {"Todos","Fruta","Hierba","Hortaliza","Tubérculo"};
 
     List<Producto>    model  = new ArrayList<>();
-    ArrayList<String> busquedas;
-    String resBusqueda;
     ProductoAdapter   adapter = null;
 
     private static final String TAGLOG = "firebase-db";
-    private static final int REQUEST_CODE = 1234;
+    private static final int REQ_CODE_SPEECH_INPUT = 1;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,17 +80,44 @@ public class CatalogoActivity extends AppCompatActivity {
                 adapter.clear();
                 String categoria = (String) adapterView.getItemAtPosition(i);
 
-                if(categoria != "") {
+                if(categoria != "Todos") {
                     categoriaProductos(categoria);
+                }else{
+                    mostrarTodosLosProductos();
                 }
-
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
             }
         });
 
+    }
+
+    private void mostrarTodosLosProductos(){
+        DatabaseReference productos = FirebaseDatabase.getInstance().getReference().child("Productos");
+        productos.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot childDataSnapshot : dataSnapshot.getChildren()) {
+                    for (DataSnapshot childChildDataSnapshot : childDataSnapshot.getChildren()) {
+                        String nombre =  childChildDataSnapshot.getKey();
+                        String icono   = childChildDataSnapshot.child("icono").getValue().toString();
+                        String imagen1 = childChildDataSnapshot.child("imagen1").getValue().toString();
+                        String imagen2 = childChildDataSnapshot.child("imagen2").getValue().toString();
+                        String imagen3 = childChildDataSnapshot.child("imagen3").getValue().toString();
+                        int    precio =  Integer.parseInt(childChildDataSnapshot.child("precio").getValue().toString());
+                        String unidad = childChildDataSnapshot.child("unidad").getValue().toString();
+
+                        Producto producto = new Producto(nombre,icono,imagen1,imagen2,imagen3,precio,unidad);
+                        adapter.add(producto);
+                    }
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.e(TAGLOG, "Error!", databaseError.toException());
+            }
+        });
     }
 
     @Override
@@ -102,23 +129,12 @@ public class CatalogoActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        String busqueda="Fruta";
         if (id == R.id.car) {
             Intent registrar = new Intent(getApplicationContext(), ListaCompra.class);
             startActivity(registrar);
         }
-       else  if (id == R.id.microphone) {
-            Intent registrar = new Intent(getApplicationContext(), ListaCompra.class);
-            if(isConnected()){
-                Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
-                intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-
-                intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE , "es-ES");
-                startActivityForResult(intent, REQUEST_CODE);
-
-                //categoriaProductos(resBusqueda);
-                //Toast.makeText(CatalogoActivity.this, busqueda, Toast.LENGTH_SHORT).show();
-            }
+        else  if (id == R.id.microphone) {
+            startVoiceInput();
         }
         else if (id == R.id.perfil) {
             Intent registrar = new Intent(getApplicationContext(), PerfilActivity.class);
@@ -250,20 +266,16 @@ public class CatalogoActivity extends AppCompatActivity {
 
             Carrito carrito = new Carrito(correo,r.getNombre(),Integer.toString(r.getPrecio()),cant,Boolean.FALSE);
             ref.child("Carrito").push().setValue(carrito);
-
         }
-
     }
 
     public  void categoriaProductos(String categoria){
         DatabaseReference productos = FirebaseDatabase.getInstance().getReference().child("Productos").child(categoria);
+        System.out.println(productos.toString());
         productos.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot childDataSnapshot : dataSnapshot.getChildren()) {
-
-                    //Toast.makeText(getApplicationContext(),"Select "+childDataSnapshot.getKey(),Toast.LENGTH_SHORT).show();
-
                     String nombre =  childDataSnapshot.getKey();
                     String icono   = childDataSnapshot.child("icono").getValue().toString();
                     String imagen1 = childDataSnapshot.child("imagen1").getValue().toString();
@@ -271,9 +283,7 @@ public class CatalogoActivity extends AppCompatActivity {
                     String imagen3 = childDataSnapshot.child("imagen3").getValue().toString();
                     int    precio =  Integer.parseInt(childDataSnapshot.child("precio").getValue().toString());
                     String unidad = childDataSnapshot.child("unidad").getValue().toString();
-
                     Producto producto = new Producto(nombre,icono,imagen1,imagen2,imagen3,precio,unidad);
-
                     adapter.add(producto);
                 }
             }
@@ -284,13 +294,54 @@ public class CatalogoActivity extends AppCompatActivity {
         });
     }
 
+    private void startVoiceInput() {
+        System.out.println("Entrando al speech");
+        Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+
+        try {
+            startActivityForResult(intent, REQ_CODE_SPEECH_INPUT);
+        } catch (ActivityNotFoundException a) {
+            Toast t = Toast.makeText(getApplicationContext(),
+                    "Ops! Your device doesn't support Speech to Text",
+                    Toast.LENGTH_SHORT);
+            t.show();
+        }
+    }
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        busquedas = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS); //Get data of data
-        resBusqueda=busquedas.get(0);
-        categoriaProductos(resBusqueda);
-
+        switch (requestCode) {
+            case REQ_CODE_SPEECH_INPUT: {
+                if (resultCode == RESULT_OK && null != data) {
+                    ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+                    String producto = result.get(0);
+                    if(producto == "Frutas"){
+                        spinnerProductos.setSelection(1);
+                        categoriaProductos(result.get(0));
+                    }
+                    else if(producto == "Hierbas"){
+                        categoriaProductos(result.get(0));
+                        spinnerProductos.setSelection(2);
+                    }
+                    else if(producto == "Hortalizas"){
+                        categoriaProductos(result.get(0));
+                        spinnerProductos.setSelection(3);
+                    }
+                    else if(producto == "Tubérculos"){
+                        categoriaProductos(result.get(0));
+                        spinnerProductos.setSelection(4);
+                    }
+                    else{
+                        Toast.makeText(getApplicationContext(), "Búsqueda no válida. Búsqueda por voz sólo válida para categorías de productos.", Toast.LENGTH_SHORT).show();
+                    }
+                }
+                break;
+            }
+        }
     }
+
 
 }
