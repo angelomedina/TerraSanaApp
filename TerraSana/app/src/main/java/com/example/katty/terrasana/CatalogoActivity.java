@@ -1,5 +1,6 @@
 package com.example.katty.terrasana;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
@@ -49,6 +50,8 @@ public class CatalogoActivity extends AppCompatActivity {
     String[] listaProductos = {"","Fruta","Hierba","Hortaliza","Tubérculo"};
 
     List<Producto>    model  = new ArrayList<>();
+    ArrayList<String> busquedas;
+    String resBusqueda;
     ProductoAdapter   adapter = null;
 
     private static final String TAGLOG = "firebase-db";
@@ -99,6 +102,7 @@ public class CatalogoActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
+        String busqueda="Fruta";
         if (id == R.id.car) {
             Intent registrar = new Intent(getApplicationContext(), ListaCompra.class);
             startActivity(registrar);
@@ -111,7 +115,9 @@ public class CatalogoActivity extends AppCompatActivity {
 
                 intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE , "es-ES");
                 startActivityForResult(intent, REQUEST_CODE);
-                Toast.makeText(CatalogoActivity.this, "No funciona por ahora", Toast.LENGTH_SHORT).show();
+
+                //categoriaProductos(resBusqueda);
+                //Toast.makeText(CatalogoActivity.this, busqueda, Toast.LENGTH_SHORT).show();
             }
         }
         else if (id == R.id.perfil) {
@@ -278,6 +284,13 @@ public class CatalogoActivity extends AppCompatActivity {
         });
     }
 
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
+        busquedas = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS); //Get data of data
+        resBusqueda=busquedas.get(0);
+        categoriaProductos(resBusqueda);
+
+    }
 
 }
