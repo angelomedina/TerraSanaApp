@@ -38,7 +38,6 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 public class CatalogoActivity extends AppCompatActivity {
 
@@ -85,6 +84,7 @@ public class CatalogoActivity extends AppCompatActivity {
                 }else{
                     mostrarTodosLosProductos();
                 }
+
             }
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
@@ -145,7 +145,10 @@ public class CatalogoActivity extends AppCompatActivity {
             Intent registrar = new Intent(getApplicationContext(), HistorialActivity.class);
             startActivity(registrar);
         }
-
+        else if(id == R.id.cerrarsesion){
+            Intent cerrarSesion = new Intent(getApplicationContext(), LoginActivity.class);
+            startActivity(cerrarSesion);
+        }
         return super.onOptionsItemSelected(item);
     }
 

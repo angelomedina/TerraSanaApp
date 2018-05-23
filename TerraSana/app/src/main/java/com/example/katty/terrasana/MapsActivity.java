@@ -1,12 +1,11 @@
 package com.example.katty.terrasana;
 
 import android.Manifest;
-import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
-import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.widget.Toast;
 
@@ -76,11 +75,14 @@ public class MapsActivity extends FragmentActivity implements
         Integer clickCount = (Integer) marker.getTag();
         // Check if a click count was set, then display the click count.
         if (marker.equals(markerPais)) {
+
+            /*
             Intent intent = new Intent(this, InfoPedidoActivity.class);
             intent.putExtra(EXTRA_LATITUD, marker.getPosition().latitude);
             intent.putExtra(EXTRA_LONGITUD, marker.getPosition().longitude);
 
             startActivity(intent);
+            */
         }
         return false;
 
@@ -132,13 +134,21 @@ public class MapsActivity extends FragmentActivity implements
             }
         }
 
+        mMap.setMyLocationEnabled(true);
+
+
+
+
+
         // Markers
-        LatLng entrega = new LatLng(10.3620435, -84.509498);
+        LatLng entrega = new LatLng(10.3238, -84.4271);
         markerPais = googleMap.addMarker(new MarkerOptions()
                 .position(entrega)
                 .title("Entrega")
                 .draggable(true)
         );
+
+        ListaCompra.txtUbicacion.setText("Mi ubicacion: "+entrega.toString());
 
         // Cámara
         googleMap.moveCamera(CameraUpdateFactory.newLatLng(entrega));

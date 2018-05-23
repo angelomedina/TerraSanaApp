@@ -1,47 +1,53 @@
 package com.example.katty.terrasana;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Spinner;
-import android.widget.Toast;
+import android.support.v7.app.AppCompatActivity;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
-public class HistorialActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
+public class HistorialActivity extends AppCompatActivity{
+    LinearLayout historialLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_historial);
 
-        Spinner spinner = (Spinner) findViewById(R.id.spinner);
-        spinner.setOnItemSelectedListener(this);
-        List<String> categories = new ArrayList<>();
-        categories.add("25-04-2018");
-        categories.add("26-04-2018");
-        categories.add("27-04-2018");
-        categories.add("28-04-2018");
+        historialLayout = findViewById(R.id.historialLayout);
 
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, categories);
-        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(dataAdapter);
+        DatabaseReference productos = FirebaseDatabase.getInstance().getReference().child("Compra").child("Compra");
+        productos.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot childDataSnapshot : dataSnapshot.getChildren()) {
+                    if(childDataSnapshot.child("email").getValue().toString().equals(FirebaseAuth.getInstance().getCurrentUser().getEmail().toString()))
+
+                        agregarHistorial(childDataSnapshot.child("fecha").getValue().toString(), childDataSnapshot.child("ubicacion").getValue().toString(), childDataSnapshot.child("lista").toString(), childDataSnapshot.child("monto").getValue().toString());
+
+                }
+
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+
     }
 
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        String item = parent.getItemAtPosition(position).toString();
-        if(item.equals("25-04-2018")) {
-            Toast.makeText(parent.getContext(), "25-04-2018: " + item, Toast.LENGTH_LONG).show();
-        }
+    private void agregarHistorial(String fecha, String ubicacion, String lista, String monto){
+        TextView txtFecha = new TextView(this);
+        txtFecha.setText("--------------");
+        historialLayout.addView(txtFecha);
 
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> adapterView) {
-
+        TextView txtSeparador = new TextView(this);
+        txtSeparador.setText("Fecha: " + fecha + "\nUbicacion: " + ubicacion + "\nLista: " + lista + "\nMonto: " + monto);
+        historialLayout.addView(txtSeparador);
     }
 }

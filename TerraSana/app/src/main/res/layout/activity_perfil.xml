@@ -14,99 +14,24 @@
         android:orientation="vertical">
 
 
-    <TextView
-        android:id="@+id/nombre"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/colorPrimary"
-        android:layout_gravity="center_horizontal"
-        android:text="Ka"
-        android:textSize="18dp"
-        android:layout_marginTop="16dp"/>
+        <TextView
+            android:id="@+id/nombre"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorPrimary"
+            android:layout_gravity="center_horizontal"
+            android:text="Ka"
+            android:textSize="18dp"
+            android:layout_marginTop="16dp"/>
 
         <TextView
             android:id="@+id/nombre2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="Correo de usuario"
             android:textColor="@color/colorPrimaryDark"
-            android:layout_gravity="center_horizontal"
-            android:text="Nombre"
-            android:textSize="14dp"/>
+            android:textSize="14dp" />
 
-        <TextView
-            android:id="@+id/direccion"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/colorPrimary"
-            android:layout_gravity="center_horizontal"
-            android:text="Ka"
-            android:textSize="18dp"
-            android:layout_marginTop="16dp"/>
-
-        <TextView
-            android:id="@+id/direccion2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/colorPrimaryDark"
-            android:layout_gravity="center_horizontal"
-            android:text="Direccion"
-            android:textSize="14dp"/>
-
-        <TextView
-            android:id="@+id/telefono"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/colorPrimary"
-            android:layout_gravity="center_horizontal"
-            android:text="Ka"
-            android:textSize="18dp"
-            android:layout_marginTop="16dp"/>
-
-        <TextView
-            android:id="@+id/telefono2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/colorPrimaryDark"
-            android:layout_gravity="center_horizontal"
-            android:text="Teléfono"
-            android:textSize="14dp"/>
-
-        <TextView
-            android:id="@+id/correoE"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/colorPrimary"
-            android:layout_gravity="center_horizontal"
-            android:text="Ka"
-            android:textSize="18dp"
-            android:layout_marginTop="16dp"/>
-
-        <TextView
-            android:id="@+id/correoE2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/colorPrimaryDark"
-            android:layout_gravity="center_horizontal"
-            android:text="Correo Eletrónico"
-            android:textSize="14dp"/>
-
-        <TextView
-            android:id="@+id/usuario"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/colorPrimary"
-            android:layout_gravity="center_horizontal"
-            android:text="Ka"
-            android:textSize="18dp"
-            android:layout_marginTop="16dp"/>
-
-        <TextView
-            android:id="@+id/usuaiio2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/colorPrimaryDark"
-            android:layout_gravity="center_horizontal"
-            android:text="Usuario"
-            android:textSize="14dp"/>
     </LinearLayout>
 </LinearLayout>

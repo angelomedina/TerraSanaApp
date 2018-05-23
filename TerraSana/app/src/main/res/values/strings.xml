@@ -47,5 +47,6 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_maps">Map</string>
     <string name="title_activity_map_ubication">Map</string>
+    <string name="cerrarsesion">Cerrar Sesión</string>
 
 </resources>
