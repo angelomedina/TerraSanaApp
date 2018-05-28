@@ -1,0 +1,46 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+
+
+    <TextView
+        android:id="@+id/fecha_historial"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="@android:color/black" />
+
+    <TextView
+        android:id="@+id/ubicacion_historial"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/fecha_historial"
+        android:layout_marginTop="5dp"
+        android:text="Android 6.0"
+        android:textColor="@android:color/black" />
+
+    <TextView
+        android:id="@+id/monto_historial"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ubicacion_historial"
+        android:layout_marginTop="5dp"
+        android:text="Android 6.0"
+        android:textColor="@android:color/black" />
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="75dp"
+        android:layout_height="48dp"
+        android:layout_marginLeft="150dp"
+        android:layout_marginTop="1dp"
+        android:orientation="horizontal">
+
+
+    </LinearLayout>
+
+
+</RelativeLayout>

@@ -26,6 +26,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class ListaCompra extends AppCompatActivity implements View.OnClickListener {
@@ -45,9 +47,11 @@ public class ListaCompra extends AppCompatActivity implements View.OnClickListen
         setContentView(R.layout.activity_lista_compra);
 
 
+
         adapter = new PedidoAdapter();
         ListView list = (ListView) findViewById(R.id.lista_pedidos);
         list.setAdapter(adapter);
+
 
         btnMapa = (Button) findViewById(R.id.mapa_compra);
         btnConfirmar = (Button) findViewById(R.id.btn_realizar_compra);
@@ -56,7 +60,9 @@ public class ListaCompra extends AppCompatActivity implements View.OnClickListen
 
         btnConfirmar.setOnClickListener(this);
 
+
         carritoUsuario();
+
     }
 
 
@@ -108,7 +114,6 @@ public class ListaCompra extends AppCompatActivity implements View.OnClickListen
                 }
                 realizarCompra( lista,correo,monto);
                 lista.clear();
-                monto=0;
 
             }
             @Override
@@ -120,16 +125,20 @@ public class ListaCompra extends AppCompatActivity implements View.OnClickListen
 
     void realizarCompra(List<Pedido> lista,String email,int  monto){
 
-        String montoTotal = Integer.toString(monto);
+        if(monto > 0) {
 
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        final DatabaseReference ref      = database.getReference("Compra");
+            Date fecha = Calendar.getInstance().getTime();
 
-        Compra compra = new Compra(lista,montoTotal,txtUbicacion.getText().toString(),email,"prueba");
-        ref.child("Compra").push().setValue(compra);
+            String montoTotal = Integer.toString(monto);
 
-        mensaje("Compra realizada");
-        //carritoUsuario();
+            FirebaseDatabase database = FirebaseDatabase.getInstance();
+            final DatabaseReference ref = database.getReference("Compra");
+
+            Compra compra = new Compra(lista, montoTotal, txtUbicacion.getText().toString(), email, fecha.toString());
+            ref.child("Compra").push().setValue(compra);
+
+            mensaje("Compra realizada");
+        }
 
     }
 
@@ -169,6 +178,7 @@ public class ListaCompra extends AppCompatActivity implements View.OnClickListen
             }
         });
     }
+
 
     public void mensaje(String mensaje){
 
