@@ -188,7 +188,7 @@ public class CatalogoActivity extends AppCompatActivity {
         }
     }
 
-    static class ProductoHolder extends LoginActivity{
+    class ProductoHolder{
 
 
         private ImageView icono, imagen1, imagen2, imagen3 = null;
@@ -219,6 +219,17 @@ public class CatalogoActivity extends AppCompatActivity {
             unidad.setText("Unidad: " + r.getUnodad());
 
             confirmar.setBackgroundColor(0xFFFFFFFF);
+
+            icono.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(getApplicationContext(), ImagenesActivity.class);
+                    intent.putExtra("imagen1", r.getImagen1());
+                    intent.putExtra("imagen2", r.getImagen2());
+                    intent.putExtra("imagen3", r.getImagen3());
+                    startActivity(intent);
+                }
+            });
 
             aumentar.setOnClickListener(new View.OnClickListener() {
                 //int cant=0;
@@ -251,7 +262,7 @@ public class CatalogoActivity extends AppCompatActivity {
                 public void onClick(View view) {
                     if(cant[0]>=1) {
 
-                        String correo = userEmail;
+                        String correo = LoginActivity.userEmail;
 
                         agregarCarrito(correo,r,cant[0]);
                         confirmar.setBackgroundColor(0xFFDDF603);

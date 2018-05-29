@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">TerraSana2</string>
+    <string name="app_name">TerraSana</string>
     <string name="title_activity_login">Inicio de sesión</string>
     <string name="title_activity_catalogo">Catálogo</string>
     <string name="title_activity_resgistro">Registro</string>
