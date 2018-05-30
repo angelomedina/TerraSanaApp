@@ -94,6 +94,7 @@ public class CatalogoActivity extends AppCompatActivity {
     }
 
     private void mostrarTodosLosProductos(){
+        adapter.clear();
         DatabaseReference productos = FirebaseDatabase.getInstance().getReference().child("Productos");
         productos.addValueEventListener(new ValueEventListener() {
             @Override
@@ -130,6 +131,7 @@ public class CatalogoActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.car) {
+            adapter.clear();
             Intent registrar = new Intent(getApplicationContext(), ListaCompra.class);
             startActivity(registrar);
         }
@@ -137,15 +139,18 @@ public class CatalogoActivity extends AppCompatActivity {
             startVoiceInput();
         }
         else if (id == R.id.perfil) {
+            adapter.clear();
             Intent registrar = new Intent(getApplicationContext(), PerfilActivity.class);
             startActivity(registrar);
         }
 
         else if (id == R.id.historial) {
+            adapter.clear();
             Intent registrar = new Intent(getApplicationContext(), HistorialActivity.class);
             startActivity(registrar);
         }
         else if(id == R.id.cerrarsesion){
+            adapter.clear();
             Intent cerrarSesion = new Intent(getApplicationContext(), LoginActivity.class);
             startActivity(cerrarSesion);
         }
@@ -223,6 +228,7 @@ public class CatalogoActivity extends AppCompatActivity {
             icono.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+
                     Intent intent = new Intent(getApplicationContext(), ImagenesActivity.class);
                     intent.putExtra("imagen1", r.getImagen1());
                     intent.putExtra("imagen2", r.getImagen2());
@@ -266,6 +272,7 @@ public class CatalogoActivity extends AppCompatActivity {
 
                         agregarCarrito(correo,r,cant[0]);
                         confirmar.setBackgroundColor(0xFFDDF603);
+                        cant[0]=0;
 
                     }
                 }
@@ -284,6 +291,7 @@ public class CatalogoActivity extends AppCompatActivity {
     }
 
     public  void categoriaProductos(String categoria){
+        adapter.clear();
         DatabaseReference productos = FirebaseDatabase.getInstance().getReference().child("Productos").child(categoria);
         System.out.println(productos.toString());
         productos.addValueEventListener(new ValueEventListener() {
